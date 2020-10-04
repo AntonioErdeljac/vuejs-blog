@@ -3,14 +3,15 @@
     <h2>Add a new post</h2>
     <form>
       <label for="title">Title:</label>
-      <input v-model="title" type="text" name="title" id="title" required />
+      <input v-model.lazy="blog.title" type="text" name="title" id="title" required />
       <label for="content">Content:</label>
-      <textarea v-model="content" name="content" rows="5" id="content"></textarea>
+      <textarea v-model.lazy="blog.content" name="content" rows="5" id="content"></textarea>
     </form>
     <div id="preview">
       <h3>Preview</h3>
-      <p>Title: {{ title }}</p>
-      <p>Content: {{ content }}</p>
+      <p>Title: {{ blog.title }}</p>
+      <p>Content:</p>
+      <p>{{ blog.content }}</p>
     </div>
   </div>
 </template>
@@ -19,8 +20,10 @@
 export default {
   data() {
     return {
-      title: '',
-      content: '',
+      blog: {
+        title: '',
+        content: '',
+      },
     }
   }
 }
@@ -50,5 +53,8 @@ input[type="text"], textarea{
 }
 h3{
     margin-top: 10px;
+}
+.capitalize {
+  text-transform: capitalize;
 }
 </style>
