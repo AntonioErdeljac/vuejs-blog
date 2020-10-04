@@ -14,6 +14,12 @@
         <label>Snippets</label>
         <input type="checkbox" v-model="blog.categories" value="snippets">
       </div>
+      <label>Author:</label>
+      <select v-model="blog.author">
+        <option :key="author" v-for="author in authors">
+          {{ author }}
+        </option>
+      </select>
     </form>
     <div id="preview">
       <h3>Preview</h3>
@@ -26,6 +32,7 @@
           <span class="capitalize">{{ category }}</span>
         </li>
       </ul>
+      <p>Author: {{ blog.author }}</p>
     </div>
   </div>
 </template>
@@ -34,10 +41,12 @@
 export default {
   data() {
     return {
+      authors: ['Antonio', 'Ivan', 'Marko'],
       blog: {
         title: '',
         content: '',
         categories: [],
+        author: '',
       },
     }
   }
