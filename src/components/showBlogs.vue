@@ -1,8 +1,8 @@
 <template>
-  <div id="show-blogs">
+  <div v-theme:column="'wide'" id="show-blogs">
     <h1>All posts</h1>
     <div id="single-blog" :key="blog.id" v-for="blog in blogs">
-      <h2>{{ blog.title }}</h2>
+      <h2 v-rainbow>{{ blog.title }}</h2>
       <article>{{ blog.body }}</article>
     </div>
   </div>
@@ -19,7 +19,7 @@ export default {
     this.$http.get('https://jsonplaceholder.typicode.com/posts').then(({ body }) => {
       this.blogs = body.slice(0, 10);
     })
-  }
+  },
 }
 </script>
 
