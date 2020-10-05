@@ -24,11 +24,7 @@ export default {
   },
   computed: {
     filteredBlogs: function() {
-      if(!this.search) {
-        return this.blogs;
-      }
-
-      return this.blogs.filter((blog) => blog.title.indexOf(this.search) !== -1);
+      return this.blogs.filter((blog) => blog.title.match(this.search));
     },
   },
 }
