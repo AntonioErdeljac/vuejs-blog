@@ -27,6 +27,47 @@ export default {
       return this.blogs.filter((blog) => blog.title.match(this.search));
     },
   },
+  filters: {
+    toUppercase: (value) => {
+      return value.toUpperCase();
+    },
+    snippet: (value) => {
+      return `${value.slice(0, 100)}...`;
+    }
+  },
+  directives: {
+    rainbow: {
+      bind(element, binding, virtualNode) {
+        element.style.color = `#${Math.random().toString().slice(2, 8)}`
+      },
+    },
+    theme: {
+      bind(element, binding, virtualNode) {
+        const valueFactory = {
+          'wide': () => element.style.maxWidth = '1200px',
+          'narrow': () => element.style.maxWidth = '560px',
+        };
+
+        const argFactory = {
+          'column': () => {
+            element.style.background = '#ddd';
+            element.style.padding = '20px';
+          },
+        }
+
+        const value = valueFactory[binding.value];
+        const arg = argFactory[binding.arg];
+
+        if (value) {
+          value()
+        }
+
+        if (arg) {
+          arg();
+        }
+      },
+    }
+  }
 }
 </script>
 
