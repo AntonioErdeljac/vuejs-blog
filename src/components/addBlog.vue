@@ -60,20 +60,16 @@ export default {
   },
   methods: {
     submit() {
-      this.$http.post('https://jsonplaceholder.typicode.com/posts', {
-        title: this.blog.title,
-        body: this.blog.content,
-        userId: 1,
-      }).then((data) => {
-        this.submitted = true;
-        console.log(data)
-      })
+      this.$http.post('https://vuejs-blog-79691.firebaseio.com/posts.json', this.blog)
+        .then((data) => {
+          this.submitted = true;
+        })
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 #add-blog *{
     box-sizing: border-box;
 }
