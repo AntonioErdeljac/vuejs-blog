@@ -1,7 +1,13 @@
 <template>
   <div id="single-blog">
     <h1>{{ blog.title }}</h1>
-    <article>{{ blog.body }}</article>
+    <article>{{ blog.content }}</article>
+    <p>Author: {{ blog.author }}</p>
+    <ul>
+      <li :key="category" v-for="category in blog.categories">
+        {{ category }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -14,7 +20,7 @@ export default {
     }
   },
   mounted() {
-    this.$http.get(`https://jsonplaceholder.typicode.com/posts/${this.id}`)
+    this.$http.get(`https://vuejs-blog-79691.firebaseio.com/posts/${this.id}.json`)
       .then(({ body }) => this.blog = { ...body })
   }
 }

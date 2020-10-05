@@ -2,11 +2,11 @@
   <div v-theme:column="'wide'" id="show-blogs">
     <h1>All posts</h1>
     <input type="text" v-model="search" placeholder="Search" />
-    <div id="single-blog" :key="blog.id" v-for="blog in filteredBlogs">
+    <div id="single-blog" :key="blog.id" v-for="blog in blogs">
         <router-link :to="'/blog/' + blog.id">
           <h2 v-rainbow>{{ blog.title | to-uppercase }}</h2>
         </router-link>
-        <article>{{ blog.body | snippet }}</article>
+        <article>{{ blog.content | snippet }}</article>
     </div>
   </div>
 </template>
@@ -17,13 +17,25 @@ import searchMixin from '../mixins/searchMixin';
 export default {
   data() {
     return {
-      blogs: [],
+      blogs: {},
       search: '',
     };
   },
   mounted() {
-    this.$http.get('https://jsonplaceholder.typicode.com/posts').then(({ body }) => {
-      this.blogs = body.slice(0, 10);
+    this.$http.get('https://vuejs-blog-79691.firebaseio.com/posts.json').then((data) => {
+      return data.json()
+    })
+    .then((data) => {
+      let posts = [];
+
+      Object.keys((data)).forEach((value) => {
+        posts.push({
+          id: value,
+          ...data[value]
+        })
+      })
+
+      this.blogs = posts;
     })
   },
   filters: {
